@@ -1,0 +1,57 @@
+\input{../common.tex}
+
+\newcommand{\headertext}{EE240B HW 1}
+\renewcommand{\thesubsection}{\thesection.\alph{subsection}}
+
+\title{\vspace{-0.4in}\Large \bf \headertext \vspace{-0.1in}}
+\author{Vighnesh Iyer}
+
+\date{\today}
+\maketitle
+
+\markboth{\headertext}{\headertext}
+\thispagestyle{empty}
+
+\section{HW1}
+\begin{enumerate}
+\item {\color{blue}For a transistor in strong inversion, the current is dominated by drift rather than diffusion. The channel profile is nevertheless non-uniform which means there is a drift current even in strong inversion. Assuming the square law model (which ignores drift) is a good estimate of the channel charge profile, calculate the diffusion current and compare it to the drift current.}
+
+\item {\color{blue}For your technology DK, what is the compact model used? Which version number? Does the model use binning? If so, by which parameters?}
+
+I'm using GPDK 45nm. The compact model is BSIM v4 based. Binning is done using the $l_{min}, l_{max}, w_{min}, w_{max}$ parameters present in each model. There are 30 different bins for NMOS transistors. Binning changes $V_{th}$-related parameters (like vth0, lvth0, wvth0, pvth0), mobility-related parameters (like u0, lu0, wu0, pu0), subthreshold-related parameters (like voff, lvoff, wvoff, pvoff), and output resistance-related parameters (like pdiblc2, lpdiblc2).
+
+\item {\color{blue}Besides $W$ and $L$, what are the supported instance parameters for your model? Why are detailed layout dependent parameters (such as distance to well edge) used in some models?}
+
+    \begin{itemize}
+        \item finger width ($W$)
+        \item number of fingers ($W$)
+        \item folding threshold (finger width at which to apply device folding in layout)
+        \item S/D metal width (width of metal used to short source and drain)
+        \item some other ones I don't think matter
+    \end{itemize}
+
+    The layout dependent parameters are auto-derived from the basic instance parameters (I guess for the PDK-reference layout of this transistor). These layout dependent parameters can be overridden as instance parameters. These detailed layout parameters can be used to estimate device parasitics at schematic-design time.
+
+\item {\color{blue}Set up a schematic (don't rely on the simulator to output small-signal parameters) and plot the intrinsic gain ($a_{v0}$) of the minimum sized transistor versus $V_{gs}$. Make sure you hold $V_{DS}$ constant (use an ideal op-amp - VCVS) to setup the simulation. Plot the intrinsic gain versus $I_{ds}$ and $V^*$. What is your conclusion? Do you expect a strong bias current dependence? Explain.}
+
+    I'm holding $V_{DS}$ at mid rail = $\frac{1.1}{2}$ and sweeping $I_{ds}$. I'm using a SVT transistor with minimum size ($L_{min} = 45n, W_{min} = 120n$). Here are the plots:
+
+    %%% INSERT PLOTS HERE
+
+    \begin{itemize}
+        \item $a_{v0}$ has an inverse relationship to drain current $I_{ds}$ (logarathmic) and $V_{gs}$ (linear)
+        \begin{itemize}
+            \item This is expected because the $r_o$ of the device decreases more rapidly than the $g_m$ increases as $I_{ds}, V_{gs}$ increase.
+        \end{itemize}
+        \item $a_{v0}$ is mostly flat in the mid-band versus $V^*$, and this is one reason for using the $V^*$ design methodology to choose the transistor's operating point.
+    \end{itemize}
+
+\item {\color{blue}Now re-plot the instinsic gain $a_{v0}$ for a few non-minimum length devices. Try $2 L_{min}$, $3 L_{min}$, and $L_{max}$. Does the gain depend on $W$? Explain why you should avoid using a very small $W$. $L_{max}$ is the longest channel length supported by the DK}
+
+    In this process $L_{max} = 10 \mu m$
+    \begin{itemize}
+        \item The intrinsic gain generally doesn't depend on $W$ since $r_o$ and $g_m$ both scale linearly with the transistor width.
+        \item A very small $W$ however has a proportionally larger $C_{dd}$ and $C_{gg}$ than a wider transistor, which can lead to significant schematic/layout mismatches post-layout and extraction.
+    \end{itemize}
+\end{enumerate}
+\end{document}
