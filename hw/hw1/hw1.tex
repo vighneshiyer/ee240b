@@ -73,11 +73,21 @@ I'm using GPDK 45nm. The compact model is BSIM v4 based. Binning is done using t
 
 \item {\color{blue}Plot $\frac{g_m}{I_d}$ versus $V_{gs}$ for the minimum, $2 L_{min}$, $3 L_{min}$, and $L_{max}$ of your technology. Superimpose the expected sub-threshold and square-law behavior and compare.}
 
-    I can do this with the data I already have.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{figs/problem8.png}
+    \end{figure}
+
+    I assumed the square law was $I_{ds} = k \frac{W}{L} (V_{gs} - V_{th})^2$, and allowed $k$ and $V_{th}$ to be fitting parameters. I allowed fitting from midway through the $I_{ds}$ sweep.
 
 \item {\color{blue}Plot $V^*$ versus $V_{gs}$ for the minimum, $2 L_{min}$, $3 L_{min}$, and $L_{max}$ of your technology. Superimpose the expected sub-threshold and square-law behavior and compare.}
 
-    Same data can be analyzed.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{figs/problem9.png}
+    \end{figure}
+
+    I used the same square-law fitting procedure. This curve makes sense since $V^*$ is just an analog for $V_{ov} = V_{gs} - V_{th}$. The curved polynomial behavior indicates that at high $V_{gs}$, $V^*$ is less affected mostly due to velocity saturation.
 
 \item {\color{blue}Plot $f^T$ vs $V^*$. Make sure to set up a schematic to extract $f^T$ rather than using the SS-parameters of the model. Use $L_{min}$, $2 L_{min}$, $3 L_{min}$, and $L_{max}$ of your technology. Explain the trends.}
 
