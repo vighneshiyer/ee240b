@@ -99,7 +99,11 @@ I'm using GPDK 45nm. The compact model is BSIM v4 based. Binning is done using t
     I'm extracting $f_T$ for $V_{ds} = 1.1/2 V$ and minimum width of 120n for a SVT NMOS. $I_{ds}$ is swept from 1n to 60u and $V^*$ is derived from correlating this $I_{ds}$ sweep to the previous results obtained. $f_T$ is extracted by analyzing current gain from gate to drain and seeing at what frequency the gain drops to 0dB. Nearly 200 Ghz $f_T$ can be obtained with the minimally sized device in this process.
 
 \item {\color{blue}Plot the product of $f_T$ and $a_{v0}$ vs $V^*$ for $L_{min}$, $2 L_{min}$, $3 L_{min}$, and $L_{max}$. For which $V^*$ is the product maximum for each case?}
-    Once I have $f_T$ this is easy.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{figs/problem11.png}
+    \end{figure}
 
 \item {\color{blue} Design an amplifier that achieves a DC gain of 20 and a unity gain frequency of 500 Mhz while driving a load of 1pF. Specify the required $V^*$, bias current, $V_{gs}$, and device dimensions. Use the results of the previous problems to guide the design choices. Verify with SPICE.}
 \end{enumerate}
