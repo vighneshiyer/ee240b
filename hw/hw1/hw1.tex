@@ -53,5 +53,30 @@ I'm using GPDK 45nm. The compact model is BSIM v4 based. Binning is done using t
         \item The intrinsic gain generally doesn't depend on $W$ since $r_o$ and $g_m$ both scale linearly with the transistor width.
         \item A very small $W$ however has a proportionally larger $C_{dd}$ and $C_{gg}$ than a wider transistor, which can lead to significant schematic/layout mismatches post-layout and extraction.
     \end{itemize}
+
+\item {\color{blue}Which capacitance model does your model use? What is the charge partition scheme?}
+
+    Look at capmod, xpart (in the capacitance parameter section), look these up the bsim manual
+
+\item {\color{blue}Setup a simulation to plot the normalized input capacitances seen from the gate ($C_{gs}, C_{gd}, C_{gb}$) of a MOS device as you vary $V_{gs}$ and hold $V_{ds}$ constant in triode and saturation (normalize by $C_{ox}$). Are the expected symmetry properties upholding? Specify as many physical constraints as possible and check to see they are upheld by the model}
+
+    Hold off on this until the SS gain parameters are done.
+
+\item {\color{blue}Plot $\frac{g_m}{I_d}$ versus $V_{gs}$ for the minimum, $2 L_{min}$, $3 L_{min}$, and $L_{max}$ of your technology. Superimpose the expected sub-threshold and square-law behavior and compare.}
+
+    I can do this with the data I already have.
+
+\item {\color{blue}Plot $V^*$ versus $V_{gs}$ for the minimum, $2 L_{min}$, $3 L_{min}$, and $L_{max}$ of your technology. Superimpose the expected sub-threshold and square-law behavior and compare.}
+
+    Same data can be analyzed.
+
+\item {\color{blue}Plot $f^T$ vs $V^*$. Make sure to set up a schematic to extract $f^T$ rather than using the SS-parameters of the model. Use $L_{min}$, $2 L_{min}$, $3 L_{min}$, and $L_{max}$ of your technology. Explain the trends.}
+
+    I need to update the schematic to include $f^T$ calculation.
+
+\item {\color{blue}Plot the product of $f^T$ and $a_{v0}$ vs $V^*$ for $L_{min}$, $2 L_{min}$, $3 L_{min}$, and $L_{max}$. For which $V^*$ is the product maximum for each case?}
+    Once I have $f^T$ this is easy.
+
+\item {\color{blue} Design an amplifier that achieves a DC gain of 20 and a unity gain frequency of 500 Mhz while driving a load of 1pF. Specify the required $V^*$, bias current, $V_{gs}$, and device dimensions. Use the results of the previous problems to guide the design choices. Verify with SPICE.}
 \end{enumerate}
 \end{document}
