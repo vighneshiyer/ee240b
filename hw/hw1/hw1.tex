@@ -36,22 +36,31 @@ I'm using GPDK 45nm. The compact model is BSIM v4 based. Binning is done using t
 
     I'm holding $V_{DS}$ at mid rail = $\frac{1.1}{2}$ and sweeping $I_{ds}$. I'm using a SVT transistor with minimum size ($L_{min} = 45n, W_{min} = 120n$). Here are the plots:
 
-    %%% INSERT PLOTS HERE
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{figs/problem4.png}
+    \end{figure}
 
     \begin{itemize}
         \item $a_{v0}$ has an inverse relationship to drain current $I_{ds}$ (logarathmic) and $V_{gs}$ (linear)
         \begin{itemize}
             \item This is expected because the $r_o$ of the device decreases more rapidly than the $g_m$ increases as $I_{ds}, V_{gs}$ increase.
         \end{itemize}
-        \item $a_{v0}$ versus $V^*$, follows the $I_{ds}$ relationship and this is one reason for using the $V^*$ design methodology to choose the transistor's operating point.
+        \item $a_{v0}$ versus $V^*$, follows the $V_{gs}$ relationship and this is one reason for using the $V^*$ design methodology to choose the transistor's operating point.
     \end{itemize}
 
-\item {\color{blue}Now re-plot the instinsic gain $a_{v0}$ for a few non-minimum length devices. Try $2 L_{min}$, $3 L_{min}$, and $L_{max}$. Does the gain depend on $W$? Explain why you should avoid using a very small $W$. $L_{max}$ is the longest channel length supported by the DK}
+\item {\color{blue}Now re-plot the instinsic gain $a_{v0}$ for a few non-minimum length devices. Try $2 L_{min}$, $3 L_{min}$, and $L_{max}$. Does the gain depend on $W$? Explain why you should avoid using a very small $W$. $L_{max}$ is the longest channel length supported by the DK.}
 
-    In this process $L_{max} = 10 \mu m$
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{figs/problem5.png}
+    \end{figure}
+
+    In this process $L_{max} = 10 \mu m$, but this gave weird simulation results, so I'm using $L_{max} = 1 \mu m$.
     \begin{itemize}
+        \item The intrinsic gain also doesn't depend on $L$ after the transistor is strongly saturated since the $r_o$ vs $g_m$ relationship begins to look similar across lengths.
         \item The intrinsic gain generally doesn't depend on $W$ since $r_o$ and $g_m$ both scale linearly with the transistor width.
-        \item A very small $W$ however has a proportionally larger $C_{dd}$ and $C_{gg}$ than a wider transistor, which can lead to significant schematic/layout mismatches post-layout and extraction.
+        \item A very small $W$ however has a proportionally larger $C_{dd}$ and $C_{gg}$ than a wider transistor, which can lead to significant schematic/layout mismatches post-layout and extraction (and frequency dependent gain differences too).
     \end{itemize}
 
 \item {\color{blue}Which capacitance model does your model use? What is the charge partition scheme?}
