@@ -16,6 +16,27 @@
 \begin{enumerate}
 \item {\color{blue}For a transistor in strong inversion, the current is dominated by drift rather than diffusion. The channel profile is nevertheless non-uniform which means there is a drift current even in strong inversion. Assuming the square law model (which ignores drift) is a good estimate of the channel charge profile, calculate the diffusion current and compare it to the drift current.}
 
+    The channel charge concentration can be found:
+    \begin{align*}
+        Q_c(x) &= C_{ox} (V_{gc} - V_{th}(x)) \\
+        &= C_{ox} (V_{gs} - V(x) - V_{th}) \\
+        &= C_{ox} (V_{gs} - V_{ds} \frac{x}{L} - V_{th})
+    \end{align*}
+
+    The diffusion current density can be found by taking the charge derivative over position:
+    \begin{align*}
+        J_n &= q D_n \frac{dn}{dx} = D_n \frac{d Q_D}{dx} \quad \text{for } D_n = \mu_n V_T \\
+        &= D_n C_{ox} \frac{-V_{ds}}{L} \\
+        I_{diffusion} &= J_n W L = - D_n C_{ox} V_{ds} W = - W \mu_n C_{ox} V_T V_{ds}
+    \end{align*}
+
+    To compare:
+    \begin{align*}
+        I_{ds} &= \mu C_{ox} \frac{W}{L} ((V_{gs} - V_{th}) V_{ds} - V_{ds}^2/2) \\
+        \frac{I_{ds}}{I_{diffusion}} &= \frac{(V_{gs} - V_{th}) V_{ds} - V_{ds}^2 / 2}{L V_{ds} V_T} \\
+        &= \frac{V_{gs} - V_{th} - V_{ds}/2}{L V_T}
+    \end{align*}
+
 \item {\color{blue}For your technology DK, what is the compact model used? Which version number? Does the model use binning? If so, by which parameters?}
 
 I'm using GPDK 45nm. The compact model is BSIM v4 based. Binning is done using the $l_{min}, l_{max}, w_{min}, w_{max}$ parameters present in each model. There are 30 different bins for NMOS transistors. Binning changes $V_{th}$-related parameters (like vth0, lvth0, wvth0, pvth0), mobility-related parameters (like u0, lu0, wu0, pu0), subthreshold-related parameters (like voff, lvoff, wvoff, pvoff), and output resistance-related parameters (like pdiblc2, lpdiblc2).
