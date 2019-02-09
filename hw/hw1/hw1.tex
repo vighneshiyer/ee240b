@@ -67,9 +67,12 @@ I'm using GPDK 45nm. The compact model is BSIM v4 based. Binning is done using t
 
     Look at capmod, xpart (in the capacitance parameter section), look these up the bsim manual
 
-\item {\color{blue}Setup a simulation to plot the normalized input capacitances seen from the gate ($C_{gs}, C_{gd}, C_{gb}$) of a MOS device as you vary $V_{gs}$ and hold $V_{ds}$ constant in triode and saturation (normalize by $C_{ox}$). Are the expected symmetry properties upholding? Specify as many physical constraints as possible and check to see they are upheld by the model}
+\item {\color{blue}Setup a simulation to plot the normalized input capacitances seen from the gate ($C_{gs}, C_{gd}, C_{gb}$) of a MOS device as you vary $V_{gs}$ and hold $V_{ds}$ constant in triode and saturation (normalize by $C_{ox}$). Are the expected symmetry properties upholding? Specify as many physical constraints as possible and check to see they are upheld by the model.}
 
-    Hold off on this until the SS gain parameters are done.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{figs/problem7.png}
+    \end{figure}
 
 \item {\color{blue}Plot $\frac{g_m}{I_d}$ versus $V_{gs}$ for the minimum, $2 L_{min}$, $3 L_{min}$, and $L_{max}$ of your technology. Superimpose the expected sub-threshold and square-law behavior and compare.}
 
@@ -77,6 +80,8 @@ I'm using GPDK 45nm. The compact model is BSIM v4 based. Binning is done using t
         \centering
         \includegraphics[width=0.8\textwidth]{figs/problem8.png}
     \end{figure}
+
+    The triode $V_{ds} = 0.2 V$ and the saturation $V_{ds} = 0.9 V$. $V_{gs}$ is varied by sweeping $I_{ds}$.
 
     I assumed the square law was $I_{ds} = k \frac{W}{L} (V_{gs} - V_{th})^2$, and allowed $k$ and $V_{th}$ to be fitting parameters. I allowed fitting from midway through the $I_{ds}$ sweep.
 
@@ -104,6 +109,8 @@ I'm using GPDK 45nm. The compact model is BSIM v4 based. Binning is done using t
         \centering
         \includegraphics[width=\textwidth]{figs/problem11.png}
     \end{figure}
+
+    The optimal $V^*$ is about 0.23V, 0.25V, 0.27V, 0.375V for the shortest to longest devices.
 
 \item {\color{blue} Design an amplifier that achieves a DC gain of 20 and a unity gain frequency of 500 Mhz while driving a load of 1pF. Specify the required $V^*$, bias current, $V_{gs}$, and device dimensions. Use the results of the previous problems to guide the design choices. Verify with SPICE.}
 \end{enumerate}
