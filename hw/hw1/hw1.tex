@@ -134,5 +134,12 @@ I'm using GPDK 45nm. The compact model is BSIM v4 based. Binning is done using t
     The optimal $V^*$ is about 0.23V, 0.25V, 0.27V, 0.375V for the shortest to longest devices.
 
 \item {\color{blue} Design an amplifier that achieves a DC gain of 20 and a unity gain frequency of 500 Mhz while driving a load of 1pF. Specify the required $V^*$, bias current, $V_{gs}$, and device dimensions. Use the results of the previous problems to guide the design choices. Verify with SPICE.}
+
+    I designed a CS-amplifier with a current source load. The dimensions were $W = 5 \mu m, L = 100 nm$. $V_{ds} = 1.1V$ and $I_{ds} = 700 \mu A$. The static power consumption is 770 $\mu$W and it achieves a DC gain of 20.89 with a unity gain frequency of 500 Mhz.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{figs/amplifier.png}
+    \end{figure}
 \end{enumerate}
 \end{document}
