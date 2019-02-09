@@ -65,7 +65,7 @@ I'm using GPDK 45nm. The compact model is BSIM v4 based. Binning is done using t
 
 \item {\color{blue}Which capacitance model does your model use? What is the charge partition scheme?}
 
-    Look at capmod, xpart (in the capacitance parameter section), look these up the bsim manual
+    The capacitance model is capmod = 2 (a smooth and single charge (with thickness) equation). The xpart parameter says the charge partition scheme is 0/100.
 
 \item {\color{blue}Setup a simulation to plot the normalized input capacitances seen from the gate ($C_{gs}, C_{gd}, C_{gb}$) of a MOS device as you vary $V_{gs}$ and hold $V_{ds}$ constant in triode and saturation (normalize by $C_{ox}$). Are the expected symmetry properties upholding? Specify as many physical constraints as possible and check to see they are upheld by the model.}
 
@@ -74,14 +74,14 @@ I'm using GPDK 45nm. The compact model is BSIM v4 based. Binning is done using t
         \includegraphics[width=0.8\textwidth]{figs/problem7.png}
     \end{figure}
 
+    The triode $V_{ds} = 0.2 V$ and the saturation $V_{ds} = 0.9 V$. $V_{gs}$ is varied by sweeping $I_{ds}$.
+
 \item {\color{blue}Plot $\frac{g_m}{I_d}$ versus $V_{gs}$ for the minimum, $2 L_{min}$, $3 L_{min}$, and $L_{max}$ of your technology. Superimpose the expected sub-threshold and square-law behavior and compare.}
 
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{figs/problem8.png}
     \end{figure}
-
-    The triode $V_{ds} = 0.2 V$ and the saturation $V_{ds} = 0.9 V$. $V_{gs}$ is varied by sweeping $I_{ds}$.
 
     I assumed the square law was $I_{ds} = k \frac{W}{L} (V_{gs} - V_{th})^2$, and allowed $k$ and $V_{th}$ to be fitting parameters. I allowed fitting from midway through the $I_{ds}$ sweep.
 
