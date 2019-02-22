@@ -1,0 +1,62 @@
+\input{../common.tex}
+\renewcommand{\arraystretch}{1.5}
+
+\newcommand{\headertext}{EE240B HW 2}
+\renewcommand{\thesubsection}{\thesection.\alph{subsection}}
+
+\newcommand{\Ohms}{\text{ }\Omega}
+\newcommand{\MOhms}{\text{ M}\Omega}
+
+\newcommand{\nVNoise}{\frac{\text{nV}}{\sqrt{\text{Hz}}}}
+
+\title{\vspace{-0.4in}\Large \bf \headertext \vspace{-0.1in}}
+\author{Vighnesh Iyer}
+
+\date{\today}
+\maketitle
+
+\markboth{\headertext}{\headertext}
+\thispagestyle{empty}
+
+\section{Electronic Noise}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{figs/problem1.png}
+\end{figure}
+
+\begin{enumerate}[label=(\alph*)]
+  \item {\color{blue}Calculate the input referred noise in $V / \sqrt{\text{Hz}}$ achieved with the two amplifiers for $R_S = 50 \Omega, 5 \text{M}\Omega$. Only consider the amplifier noise. Assume the amplifier voltage and current sources are uncorrelated.}
+
+  \begin{center}
+    \begin{tabular}{ |c|c|c| }
+      \hline
+      $R_s$ & Amplifier A & Amplifier B \\ \hline
+      $50 \Ohms$ & $1.05 \nVNoise$ & $10 \nVNoise$ \\ \hline
+      $5 \MOhms$ & $5000 \nVNoise$ & $15 \nVNoise$ \\ \hline
+    \end{tabular}
+  \end{center}
+
+  \item {\color{blue}Significance of the result?}
+
+  If the input voltage source's resistance is low, an amplifier with low voltage noise should be chosen (since the amplifier's current noise won't see a large resistance). Use a BJT op-amp.
+
+  If the input voltage source's resistance is high, an amplifier with low current noise should be chosen. This is usually a FET op-amp.
+\end{enumerate}
+
+\section{Amplifier Noise}
+Derive analytical expressions as a function of $g_m, \gamma, f_T, R_L, R_S,$ and $C_L$
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.2\textwidth]{figs/problem2.png}
+\end{figure}
+
+\begin{enumerate}[label=(\alph*)]
+  \item {\color{blue}The voltage gain $a_v(s) = v_o / v_i$}
+
+    This is a standard source-degenerated common-source amplifier with a complex load.
+    \begin{align*}
+      Z_L = (R_L || C_L) = (R_L || \frac{1}{s C_L}) &= \frac{R_L}{a + s R_L C_L} \\
+      a_v(s) &= 
+    \end{align*}
+\end{enumerate}
+\end{document}
