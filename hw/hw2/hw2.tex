@@ -7,6 +7,7 @@
 \newcommand{\Ohms}{\text{ }\Omega}
 \newcommand{\MOhms}{\text{ M}\Omega}
 
+\newcommand{\VNoise}{\frac{\text{V}}{\sqrt{\text{Hz}}}}
 \newcommand{\nVNoise}{\frac{\text{nV}}{\sqrt{\text{Hz}}}}
 
 \title{\vspace{-0.4in}\Large \bf \headertext \vspace{-0.1in}}
@@ -44,19 +45,45 @@
 \end{enumerate}
 
 \section{Amplifier Noise}
-Derive analytical expressions as a function of $g_m, \gamma, f_T, R_L, R_S,$ and $C_L$
+Derive analytical expressions as a function of $g_m, \gamma, f_T, R_L, R_S,$ and $C_L$. Consider only thermal noise from $R_S, R_L$, and transistor shot noise. Ignore flicker noise, $r_o$, and body effect. $C_L$ is fixed and $C_{gs}$ is expressed in terms of $f_T$.
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.2\textwidth]{figs/problem2.png}
+  \includegraphics[width=0.3\textwidth]{figs/problem2.png}
 \end{figure}
 
 \begin{enumerate}[label=(\alph*)]
   \item {\color{blue}The voltage gain $a_v(s) = v_o / v_i$}
 
-    This is a standard source-degenerated common-source amplifier with a complex load.
+    This is a standard source-degenerated common-source amplifier with a complex load. We need to consider $C_{gs}$ which will give a 2nd-order transfer function and makes the algebra complicated. I'm using the sympy CAS to do the algebra. I'll provide the source and the derived solution.
+
+    \begin{minted}{python}
+from sympy import *
+def ll(a, b): # Put impedances a and b in parallel symbolically
+    return (a*b) / (a + b)
+s, RL, CL, ZL, Cgs, Rs, gm = symbols("s R_L C_L Z_L C_{gs} R_s g_m")
+igate, isource, idrain = symbols("i_g i_s i_d")
+vs, vd, vi = symbols("v_s v_d v_i")
+sol = nonlinsolve([
+    igate - ((vi - vs) / (1 / (s*Cgs))),
+    isource - (vs / Rs),
+    idrain - gm*(vi - vs),
+    -vd - idrain*ZL,
+    isource - igate - idrain
+], [igate, isource, idrain, vd, vs])
+vd_sol = sol.args[0][3]
+gain = vd_sol / vi
+ZL_sol = ll(CL, RL)
+ZL_sol = ZL_sol.subs(CL, (1 / (s*CL))).simplify()
+display(gain.subs(ZL, ZL_sol).simplify())
+    \end{minted}
     \begin{align*}
-      Z_L = (R_L || C_L) = (R_L || \frac{1}{s C_L}) &= \frac{R_L}{a + s R_L C_L} \\
-      a_v(s) &= 
+      a_v(s) = - \frac{R_{L} g_{m}}{\left(C_{L} R_{L} s + 1\right) \left(C_{gs} R_{s} s + R_{s} g_{m} + 1\right)}
     \end{align*}
+
+  \item {\color{blue}The PSD of the noise in $\VNoise$ at node $v_o$}
+  \item {\color{blue}The total noise integrated over all frequencies at node $v_o$}
+  \item {\color{blue}The dynamic range of the circuit as a function of the peak-to-peak voltage range $V_{o,pp}$ at node $v_o$}
+  \item {\color{blue}The minimum detectable signal in $\nVNoise$ at low frequency at $\mu V_{rms}$ based on the total noise at the output of the amplifier}
+  \item {\color{blue}Comment on the effect of $R_S$ on the dynamic range and minimum detectable signal of the circuit}
 \end{enumerate}
 \end{document}
