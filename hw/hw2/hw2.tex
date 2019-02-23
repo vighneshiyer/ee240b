@@ -1,7 +1,7 @@
 \input{../common.tex}
 \renewcommand{\arraystretch}{1.5}
 
-\newcommand{\headertext}{EE240B HW 2}
+\newcommand{\headertext}{EE240B HW2}
 \renewcommand{\thesubsection}{\thesection.\alph{subsection}}
 
 \newcommand{\Ohms}{\text{ }\Omega}
@@ -110,5 +110,42 @@ display(gain.subs(ZL, ZL_sol).simplify())
   \item {\color{blue}Comment on the effect of $R_S$ on the dynamic range and minimum detectable signal of the circuit}
 
     $R_S$ suppresses the shot noise of the transistor which improves the minimum detectable signal, but it reduces the maximum output swing by a larger margin which degrades the dynamic range. There is probably a specification-specific optimal choice of $R_S$ if output swing isn't critical.
+\end{enumerate}
+
+\section{Noise Cancelling Amplifier}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.4\textwidth]{figs/problem3.png}
+\end{figure}
+
+\begin{enumerate}[label=(\alph*)]
+  \item {\color{blue}Find the input impedance $R_{in}$}
+
+    Neglecting $r_o$, the input impedance $R_{in} = \frac{1}{g_m}$
+
+  \item {\color{blue}What is the output noise under the constraint of impedance matching ($R_{in} = R_S$)? Ignore noise from current source $I_B$.}
+    First find the noise due to $R_S$:
+    \begin{align*}
+      V_g &= \frac{v_{n, R_S}}{1 + g_m R_S} \\
+      V_o &= \frac{v_{n, R_S}(1 - g_m R_F)}{1 + g_m R_S} \\
+      \overline{V_o^2} &= k T \frac{1}{g_m} (1 - g_m R_F)^2
+    \end{align*}
+
+    Then the noise due to $R_F$:
+    \begin{align*}
+      V_g &= 0 \\
+      V_o &= V_g + V_{n, R_F} + g_m V_g R_F = V_{n, R_F} \\
+      \overline{V_o^2} &= \overline{V_{n, R_F}^2} = 4 K T R_F
+    \end{align*}
+
+  \item {\color{blue}What is the output noise with the modified topology below, under a matching condition? How would you pick the value of $K$? Is $K$ positive or negative?}
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.4\textwidth]{figs/problem3c.png}
+    \end{figure}
+    \begin{align*}
+      \overline{V_o^2} = kT \frac{1}{g_m} K^2 \pm (kT \frac{1}{g_m}(1 - g_m R_F)^2 + 4kT R_F)
+    \end{align*}
+  \item {\color{blue}Replace the functional block above with a real circuit, and re-calculate the output noise.}
 \end{enumerate}
 \end{document}
