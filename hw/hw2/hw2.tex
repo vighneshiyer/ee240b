@@ -54,7 +54,7 @@ Derive analytical expressions as a function of $g_m, \gamma, f_T, R_L, R_S,$ and
 \begin{enumerate}[label=(\alph*)]
   \item {\color{blue}The voltage gain $a_v(s) = v_o / v_i$}
 
-    This is a standard source-degenerated common-source amplifier with a complex load. We need to consider $C_{gs}$ which will give a 2nd-order transfer function and makes the algebra complicated. I'm using the sympy CAS to do the algebra. I'll provide the source and the derived solution.
+    This is a standard source-degenerated common-source amplifier with a complex load. We need to consider $C_{gs}$ which will give a 2nd-order transfer function and makes the algebra complicated. I'm using the sympy CAS to do the algebra. I'll provide the source and the derived solution. \href{https://github.com/vighneshiyer/ee240b/blob/master/hw/hw2/hw2_notebook.ipynb}{Check this IPython notebook for all the source code.}
 
     \begin{minted}{python}
 from sympy import *
@@ -82,14 +82,33 @@ display(gain.subs(ZL, ZL_sol).simplify())
 
   \item {\color{blue}The PSD of the noise in $\VNoise$ at node $v_o$}
 
-    I derived the noise due to $R_S, R_L, $ and the transistor.
+    I derived the noise due to $R_S, R_L, $ and the transistor using the hybrid-pi model and a CAS.
     \begin{align*}
-      V_{out, R_s} &= \frac{R_{L} g_{m} v_{nS}}{\left(C_{L} R_{L} s + 1\right) \left(C_{gs} R_{s} s + R_{s} g_{m} + 1\right)} \\
-      V_{out, R_L} &= \frac{R_{L} i_{nL}}{C_{L} R_{L} s + 1}
+      V_{n, out, R_s}(s) &= \frac{R_{L} g_{m} v_{nS}}{\left(C_{L} R_{L} s + 1\right) \left(C_{gs} R_{s} s + R_{s} g_{m} + 1\right)} \\
+      V_{n, out, R_L}(s) &= \frac{R_{L} i_{nL}}{C_{L} R_{L} s + 1} \\
+      V_{n, out, transistor}(s) &= - \frac{R_{L} i_{nT} \left(C_{gs} R_{s} s + 1\right)}{\left(C_{L} R_{L} s + 1\right) \left(C_{gs} R_{s} s + R_{s} g_{m} + 1\right)}
     \end{align*}
+
+    We can easily substitute for $v_{ns}, i_{nL}, i_{nT}$ with the actual noise voltage and current of $R_S, R_L$ and the transistor respectively. To find output noise power, these quantities need to be squared and added together.
+
   \item {\color{blue}The total noise integrated over all frequencies at node $v_o$}
+
+    Take the total output noise power and integrate from $s = 0 \rightarrow \infty j$. See the lecture slides for the standard integrals.
+
   \item {\color{blue}The dynamic range of the circuit as a function of the peak-to-peak voltage range $V_{o,pp}$ at node $v_o$}
-  \item {\color{blue}The minimum detectable signal in $\nVNoise$ at low frequency at $\mu V_{rms}$ based on the total noise at the output of the amplifier}
+    \begin{align*}
+      \text{Output Dynamic Range } = dB_{power} \left( \frac{V_{o,pp}^2 + \overline{V_{n, out, total}^2}}{\overline{V_{n, out, total}^2}} \right)
+    \end{align*}
+
+  \item {\color{blue}The minimum detectable signal in $\nVNoise$ at low frequency and $\mu V_{rms}$ based on the total noise at the output of the amplifier}
+
+    Find the transfer function of the noise sources, but this time treat $C_{gs}$ and $C_{L}$ as opens at low frequency (set them to 0).
+    \begin{align*}
+      \overline{V_{n,out,lowfreq}} = \frac{2 R_{L} \left(I_{d} R_{L} q + 2 K R_{L} R_{s} T g_{m}^{2} + 2 K T \left(R_{s} g_{m} + 1\right)^{2}\right)}{\left(R_{s} g_{m} + 1\right)^{2}}
+    \end{align*}
+
   \item {\color{blue}Comment on the effect of $R_S$ on the dynamic range and minimum detectable signal of the circuit}
+
+    $R_S$ suppresses the shot noise of the transistor which improves the minimum detectable signal, but it reduces the maximum output swing by a larger margin which degrades the dynamic range. There is probably a specification-specific optimal choice of $R_S$ if output swing isn't critical.
 \end{enumerate}
 \end{document}
