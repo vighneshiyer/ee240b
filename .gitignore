@@ -3,3 +3,4 @@
 *.out
 .ipynb_checkpoints
 *.pptx#
+_minted*

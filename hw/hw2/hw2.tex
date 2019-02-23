@@ -81,6 +81,12 @@ display(gain.subs(ZL, ZL_sol).simplify())
     \end{align*}
 
   \item {\color{blue}The PSD of the noise in $\VNoise$ at node $v_o$}
+
+    I derived the noise due to $R_S, R_L, $ and the transistor.
+    \begin{align*}
+      V_{out, R_s} &= \frac{R_{L} g_{m} v_{nS}}{\left(C_{L} R_{L} s + 1\right) \left(C_{gs} R_{s} s + R_{s} g_{m} + 1\right)} \\
+      V_{out, R_L} &= \frac{R_{L} i_{nL}}{C_{L} R_{L} s + 1}
+    \end{align*}
   \item {\color{blue}The total noise integrated over all frequencies at node $v_o$}
   \item {\color{blue}The dynamic range of the circuit as a function of the peak-to-peak voltage range $V_{o,pp}$ at node $v_o$}
   \item {\color{blue}The minimum detectable signal in $\nVNoise$ at low frequency at $\mu V_{rms}$ based on the total noise at the output of the amplifier}
