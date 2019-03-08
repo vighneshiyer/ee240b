@@ -89,9 +89,32 @@ But that shouldn't change the optimal $g_m$ anyways. Indeed if you differentiate
       \frac{v_o}{v_i} &= \frac{R || C}{R_s} = \frac{\frac{R}{1 + sRC}}{R_s} = \frac{R}{R_s} \frac{1}{1 + sRC} \\
       \overline{v_{n,out,R_s}^2} &= \int_{0}^{\infty} \overline{v_{n,R_s}^2} \left(\frac{v_o}{v_i}\right)^2 df \\
         &= 4kT R_s \left(\frac{R}{R_s}\right)^2 \int_0^{\infty} \left|\frac{1}{1 + sRC}\right|^2 df \\
-        &= 4kT R_s \left(\frac{R}{R_s}\right)^2 \frac{1}{4RC}
+        &= 4kT R_s \left(\frac{R}{R_s}\right)^2 \frac{1}{4RC} \\
+      \overline{v_{n,out,R}^2} &= \int_{0}^{\infty} \overline{i_{n,R}^2} (R || C)^2 \\
+        &= 4kT \frac{1}{R} \int_{0}^{\infty} \left|\frac{R}{1 + sRC}\right|^2 df = 4kT \frac{1}{R} R \frac{1}{4RC} = \frac{kT}{RC} \\
+      \overline{v_{n,out,amp}^2} &= \overline{v_{n,amp}^2} \int_0^{\infty} \left|1 + \frac{R}{R_s} \frac{1}{1 + sRC}\right|^2 df = \infty
     \end{align*}
+    The amplifier noise is infinite at the output assuming GBW = $\infty$.
+
   \item {\color{blue}Assume the op-amp has infinite DC gain and finite GBW (i.e. You can model the op-amp gain $A(s) = -\omega_u/s$ where $\omega_u \gg 1 / RC$). Calculate $v_o/v_i$ and total output noise. How does the noise relate to $\omega_u$?}
+
+    Let $V_{x}$ be the node at the negative terminal of the op-amp. Then these equations can be written and we can solve for $\frac{v_o}{v_i}$.
+    \begin{align*}
+      V_x &= V_o - i Z \\
+      V_o &= \frac{V_x \omega_u}{s} \\
+      V_x - V_i &= R_s i_1 \\
+      Z &= \frac{1}{1 + sRC} \\
+      \frac{v_o}{v_i} &= \frac{R \omega_u}{- C R R_{s} \omega_u s + C R R_{s} s^{2} + R s - R_{s} \omega_u + R_{s} s}
+    \end{align*}
+
+    To perform noise analysis with feedback, cut the loop and find the noise at the amplifier input:
+    \begin{align*}
+      \left(\frac{v_o}{v_i}\right)_{cut} &= \frac{R || C}{R_s + (R || C)} A(s) \\
+      v_{in,n,R_s} &= v_{n,Rs} \\
+      v_{out,n,R} &= \frac{R_s || C}{R + (R_s || C)} v_{n,R} A(s) \\
+      v_{in,n,R} &= \frac{v_{out,n,R}}{(v_o / v_i)_{cut}} \\
+      v_{in,n,amp} &= \frac{v_{n,amp} A(s)}{(v_o / v_i)_{cut}}
+    \end{align*}
 \end{enumerate}
 
 \end{document}
